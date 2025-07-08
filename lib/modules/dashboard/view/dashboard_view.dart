@@ -143,45 +143,48 @@ class DashboardPage extends StatelessWidget {
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       children: [
-        Container(
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Colors.grey)
-          ),
-          child: Row(
-            children: [
-              Assets.userPng.image(
-                height: 60,
-                width: 54
-              ),
-              SizedBox(width: 16,),
-              Expanded(
-                child: Text(
-                  'Write something here...',
-                  style: appTheme().textTheme.headlineLarge!.copyWith(
-                    color: Colors.grey
+        InkWell(
+          onTap: ()=> bloc!.add(CreatePost()),
+          child: Container(
+            padding: EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: Colors.grey)
+            ),
+            child: Row(
+              children: [
+                Assets.userPng.image(
+                  height: 60,
+                  width: 54
+                ),
+                SizedBox(width: 16,),
+                Expanded(
+                  child: Text(
+                    'Write something here...',
+                    style: appTheme().textTheme.headlineLarge!.copyWith(
+                      color: Colors.grey
+                    ),
                   ),
                 ),
-              ),
-              ElevatedButton(
-                onPressed: ()=> bloc!.add(CreatePost()),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColor.primary,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8
+                ElevatedButton(
+                  onPressed: ()=> bloc!.add(CreatePost()),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColor.primary,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8
+                      )
                     )
-                  )
-                ),
-                child: Text(
-                  'Post',
-                  style: appTheme().textTheme.headlineLarge!.copyWith(
-                    color: Colors.white
                   ),
+                  child: Text(
+                    'Post',
+                    style: appTheme().textTheme.headlineLarge!.copyWith(
+                      color: Colors.white
+                    ),
+                  )
                 )
-              )
-            ],
+              ],
+            ),
           ),
         ),
         SizedBox(height: 30,),
@@ -191,7 +194,7 @@ class DashboardPage extends StatelessWidget {
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (context, index){
-            return SinglePost(state.allCommunities![index]);
+            return SinglePost(state.allCommunities![index],bloc: bloc!,);
           },
         ),
       ],

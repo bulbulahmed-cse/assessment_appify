@@ -17,6 +17,19 @@ class CreatePostBloc extends Bloc<CreatePostEvent, CreatePostState> {
   CreatePostBloc() : super(CreatePostState().init()) {
     on<InitEvent>(_init);
     on<CreatePost>(_createPost);
+    on<GradientColorChangeEvent>((event, emit) {
+      if(state.selectedGradient == event.gradient) {
+        emit(state.selectGradient(
+          null,
+        ));
+        return;
+      }
+      emit(state.clone(selectedGradient: event.gradient));
+    });
+
+    on<AnonymousChangeEvent>((event, emit) {
+      emit(state.clone(isAnonymous: event.isAnonymous));
+    });
   }
 
   @override
@@ -34,6 +47,7 @@ class CreatePostBloc extends Bloc<CreatePostEvent, CreatePostState> {
     Helper.showProgress();
     await repository.createPost(
       content: postContent.text,
+      bgColor: state.selectedGradient!=null?feedBackGroundGradientColors[gradientsColor.indexOf(state.selectedGradient)]:null,
       onSuccess: (data){
         backPage();
         backPage(true);

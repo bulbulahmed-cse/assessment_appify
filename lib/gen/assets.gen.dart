@@ -13,17 +13,25 @@ import 'package:flutter_svg/flutter_svg.dart' as _svg;
 import 'package:vector_graphics/vector_graphics.dart' as _vg;
 
 class Assets {
-  Assets._();
+  const Assets._();
 
+  static const SvgGenImage vector = SvgGenImage('assets/Vector.svg');
+  static const SvgGenImage analytics01 = SvgGenImage('assets/analytics-01.svg');
   static const AssetGenImage angry = AssetGenImage('assets/angry.png');
   static const SvgGenImage banner = SvgGenImage('assets/banner.svg');
+  static const SvgGenImage camera01 = SvgGenImage('assets/camera-01.svg');
   static const AssetGenImage care = AssetGenImage('assets/care.png');
   static const SvgGenImage comment = SvgGenImage('assets/comment.svg');
-  static const SvgGenImage commentFilled =
-      SvgGenImage('assets/comment_filled.svg');
+  static const SvgGenImage commentFilled = SvgGenImage(
+    'assets/comment_filled.svg',
+  );
   static const SvgGenImage community = SvgGenImage('assets/community.svg');
   static const SvgGenImage doLike = SvgGenImage('assets/do_like.svg');
+  static const SvgGenImage fileAttachment = SvgGenImage(
+    'assets/file-attachment.svg',
+  );
   static const AssetGenImage haha = AssetGenImage('assets/haha.png');
+  static const SvgGenImage image02 = SvgGenImage('assets/image-02.svg');
   static const AssetGenImage like = AssetGenImage('assets/like.png');
   static const AssetGenImage loginBack = AssetGenImage('assets/login_back.png');
   static const SvgGenImage logout = SvgGenImage('assets/logout.svg');
@@ -31,35 +39,40 @@ class Assets {
   static const AssetGenImage sad = AssetGenImage('assets/sad.png');
   static const AssetGenImage userPng = AssetGenImage('assets/user.png');
   static const SvgGenImage userSvg = SvgGenImage('assets/user.svg');
+  static const SvgGenImage video02 = SvgGenImage('assets/video-02.svg');
+  static const SvgGenImage videoAi = SvgGenImage('assets/video-ai.svg');
   static const AssetGenImage wow = AssetGenImage('assets/wow.png');
 
   /// List of all assets
   static List<dynamic> get values => [
-        angry,
-        banner,
-        care,
-        comment,
-        commentFilled,
-        community,
-        doLike,
-        haha,
-        like,
-        loginBack,
-        logout,
-        love,
-        sad,
-        userPng,
-        userSvg,
-        wow
-      ];
+    vector,
+    analytics01,
+    angry,
+    banner,
+    camera01,
+    care,
+    comment,
+    commentFilled,
+    community,
+    doLike,
+    fileAttachment,
+    haha,
+    image02,
+    like,
+    loginBack,
+    logout,
+    love,
+    sad,
+    userPng,
+    userSvg,
+    video02,
+    videoAi,
+    wow,
+  ];
 }
 
 class AssetGenImage {
-  const AssetGenImage(
-    this._assetName, {
-    this.size,
-    this.flavors = const {},
-  });
+  const AssetGenImage(this._assetName, {this.size, this.flavors = const {}});
 
   final String _assetName;
 
@@ -87,7 +100,7 @@ class AssetGenImage {
     bool gaplessPlayback = true,
     bool isAntiAlias = false,
     String? package,
-    FilterQuality filterQuality = FilterQuality.low,
+    FilterQuality filterQuality = FilterQuality.medium,
     int? cacheWidth,
     int? cacheHeight,
   }) {
@@ -119,15 +132,8 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider({
-    AssetBundle? bundle,
-    String? package,
-  }) {
-    return AssetImage(
-      _assetName,
-      bundle: bundle,
-      package: package,
-    );
+  ImageProvider provider({AssetBundle? bundle, String? package}) {
+    return AssetImage(_assetName, bundle: bundle, package: package);
   }
 
   String get path => _assetName;
@@ -136,17 +142,11 @@ class AssetGenImage {
 }
 
 class SvgGenImage {
-  const SvgGenImage(
-    this._assetName, {
-    this.size,
-    this.flavors = const {},
-  }) : _isVecFormat = false;
+  const SvgGenImage(this._assetName, {this.size, this.flavors = const {}})
+    : _isVecFormat = false;
 
-  const SvgGenImage.vec(
-    this._assetName, {
-    this.size,
-    this.flavors = const {},
-  }) : _isVecFormat = true;
+  const SvgGenImage.vec(this._assetName, {this.size, this.flavors = const {}})
+    : _isVecFormat = true;
 
   final String _assetName;
   final Size? size;
@@ -200,7 +200,8 @@ class SvgGenImage {
       placeholderBuilder: placeholderBuilder,
       semanticsLabel: semanticsLabel,
       excludeFromSemantics: excludeFromSemantics,
-      colorFilter: colorFilter ??
+      colorFilter:
+          colorFilter ??
           (color == null ? null : ColorFilter.mode(color, colorBlendMode)),
       clipBehavior: clipBehavior,
       cacheColorFilter: cacheColorFilter,

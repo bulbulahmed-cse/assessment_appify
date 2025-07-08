@@ -1,3 +1,5 @@
+import 'package:appifylab_assessment/model/comment.dart';
+
 class Communities {
   Communities({
       this.id, 
@@ -169,7 +171,7 @@ class Communities {
   User? user;
   dynamic savedPosts;
   List<LikeType>? likeType;
-  List<dynamic>? comments;
+  List<Comment>? comments;
   Meta? meta;
 
   Map<String, dynamic> toJson() {

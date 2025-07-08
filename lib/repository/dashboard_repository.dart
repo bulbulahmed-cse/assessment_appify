@@ -4,6 +4,8 @@ import 'package:appifylab_assessment/model/communities.dart';
 import 'package:appifylab_assessment/utils/api_client.dart';
 import 'package:appifylab_assessment/utils/share_helper.dart';
 
+import '../model/comment.dart';
+
 class DashboardRepository{
   ApiClient client = ApiClient();
 
@@ -34,5 +36,26 @@ class DashboardRepository{
       },
       onError: onError
     );
+  }
+
+  Future<List<Comment>> getComments({
+    required String feedId,
+    required isReply,
+    String? more,
+  }) async {
+    List<Comment> allComment = [];
+    await client.request(
+        url: isReply?Urls.getCommentsReply(feedId):Urls.getComments(feedId),
+        method: Method.GET,
+        onSuccess: (data){
+          List list = data as List;
+          for (var e in list) {
+            allComment.add(Comment.fromJson(e));
+          }
+          print(list);
+        },
+        onError: (){}
+    );
+    return allComment;
   }
 }
